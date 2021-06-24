@@ -1,0 +1,18 @@
+{
+  "ldap": {
+    "servers": [
+      "ldaps://idm1.qriscloud.org.au:636",
+      "ldaps://idm2.qriscloud.org.au:636"
+    ],
+    "bind_dn": "cn=gridftp,dc=rcc,dc=uq,dc=edu,dc=au",
+    "bind_pw": "NotForYourEyes",
+    "verify_tls": false
+  },
+  "user_blacklist": [
+    "root"
+  ],
+  "debug": {
+    "level": "INFO",
+    "dump_folder": null
+  }
+}
