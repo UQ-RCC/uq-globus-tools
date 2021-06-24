@@ -141,7 +141,7 @@ def main() -> int:
                 logging.warning('User %s in blacklist, skipping...', uid)
                 continue
 
-            results.append({'id': idmap[eml], 'username': uid})
+            results.append({'id': idmap[eml], 'output': uid})
 
     out = {
         'DATA_TYPE': 'identity_mapping_output#1.0.0',
