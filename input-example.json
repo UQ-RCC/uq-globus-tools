@@ -1,0 +1,25 @@
+{
+  "identities": [
+    {
+      "identity_provider": "a0514120-23a7-48b7-b082-ae93e40920c8",
+      "username": "uqjblogg@uq.edu.au",
+      "id": "cf176678-d7b6-11eb-96a7-974139dd1524",
+      "identity_type": "login",
+      "name": "Joe Bloggs",
+      "status": "used",
+      "email": "j.bloggs@uq.edu.au",
+      "organization": "The University of Queensland"
+    },
+    {
+      "status": "used",
+      "identity_provider": "a0514120-23a7-48b7-b082-ae93e40920c8",
+      "username": "uqjdoe@uq.edu.au",
+      "name": "Jane Doe",
+      "id": "d69122c2-d7b6-11eb-b4dc-9f9b85f127fe",
+      "email": "j.doe@uq.edu.au",
+      "identity_type": "login",
+      "organization": "The University of Queensland"
+    }
+  ],
+  "DATA_TYPE": "identity_mapping_input#1.0.0"
+}
