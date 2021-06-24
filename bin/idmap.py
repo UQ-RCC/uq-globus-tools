@@ -147,6 +147,8 @@ def main() -> int:
         'DATA_TYPE': 'identity_mapping_output#1.0.0',
         'result': results
     }
+
+    logging.debug('Output payload: %s', json.dumps(out))
     json.dump(out, sys.stdout, indent=4)
     return 0
 
