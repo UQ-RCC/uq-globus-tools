@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-
 import io
 import logging
 import ssl
 from typing import Optional, List, Iterable, Dict
 
-import ldap3
-import ldap3.utils.conv
-import ldap3.core.exceptions
+from ._vendor import ldap3
 
 
 class QRIScloudLDAP(object):

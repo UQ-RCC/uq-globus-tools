@@ -2,3 +2,4 @@
 **/.idea/
 /venv/
 /etc/config.json
+/rpmbuild/

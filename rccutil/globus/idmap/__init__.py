@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
-import os.path
-import sys
 import argparse
 import json
-import time
 import logging
-import ldap3
+import os.path
 import ssl
-from typing import Optional
+import sys
+import time
 from logging.handlers import SysLogHandler
+from typing import Optional
 
-import qriscloud
-from qriscloud import QRIScloudLDAP
-
+from qriscloud import ldap3, QRIScloudLDAP
 
 _EXPECTED_DATA_TYPE = 'identity_mapping_input#1.0.0'
 _IDENTITIES_KEYS = {'status', 'username', 'identity_provider', 'organization', 'email', 'name', 'id'}
@@ -68,15 +65,15 @@ def _validate_payload(payload) -> Optional[str]:
     return None
 
 
-def _open_ldap(cfg) -> qriscloud.QRIScloudLDAP:
+def _open_ldap(cfg) -> QRIScloudLDAP:
     ldapconfig = cfg.get('ldap', _DEFAULT_CONFIG['ldap'])
     if not ldapconfig['verify_tls']:
         tls = ldap3.Tls(validate=ssl.CERT_NONE)
     else:
         tls = None
 
-    return QRIScloudLDAP( bind_dn=ldapconfig['bind_dn'], bind_pw=ldapconfig['bind_pw'], tls=tls,
-                          servers=ldapconfig['servers'])
+    return QRIScloudLDAP(bind_dn=ldapconfig['bind_dn'], bind_pw=ldapconfig['bind_pw'], tls=tls,
+                         servers=ldapconfig['servers'])
 
 
 def main() -> int:
@@ -153,7 +150,7 @@ def main() -> int:
     return 0
 
 
-if __name__ == '__main__':
+def climain() -> int:
     sh = SysLogHandler(address='/dev/log')
     sh.ident = '<uq-globus-idmap> '
     sh.setFormatter(logging.Formatter('%(levelname)-8s: %(message)s'))
@@ -166,10 +163,10 @@ if __name__ == '__main__':
     # logging.root.addHandler(logging.StreamHandler(sys.stderr))
 
     try:
-        exit(main())
+        return main()
     except Exception as e:
         logging.exception('Caught exception during processing...')
-        #import traceback
-        #traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
+        # import traceback
+        # traceback.print_exception(type(e), e, e.__traceback__, file=sys.stderr)
         json.dump(_EMPTY_RESPOSNE, sys.stdout, indent=4)
-        exit(0)
+        return 0

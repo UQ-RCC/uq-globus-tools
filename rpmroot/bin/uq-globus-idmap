@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# https://stackoverflow.com/a/246128
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
+BASEDIR="$DIR/.."
+
+# Use Globus' python by default
+if [ -f /opt/globus/bin/python3 ]; then
+  PYTHON=/opt/globus/bin/python3
+else
+  PYTHON=python3
+fi
+
+##
+# Hack because python packaging is painful. We're not built on the
+# target OS, so this can't be done properly and we don't want python
+# crapping up our install directory.
+##
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$BASEDIR/lib/python"
+export GLOBUS_IDMAP_CONFIG_PATH="$BASEDIR/etc/config.json"
+exec $PYTHON -m rccutil.globus.idmap $@
