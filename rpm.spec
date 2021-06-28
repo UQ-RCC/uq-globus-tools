@@ -6,7 +6,10 @@ Version:    1.0.0
 Release:    1
 Summary:    %{_name}
 License:    Proprietary
+# We use Globus' embedded python
 Requires:   globus-connect-server54
+#Requires:   python3
+Requires(post): /usr/sbin/setsebool, /usr/sbin/selinuxenabled
 BuildArch:  noarch
 
 %description
@@ -17,13 +20,18 @@ UQ Globus Utilities. currently consisting of:
 mkdir -p "$RPM_BUILD_ROOT/%{_prefix}"
 mv * "$RPM_BUILD_ROOT/%{_prefix}"
 find "$RPM_BUILD_ROOT/%{_prefix}" -name __pycache__ -type d -print0 | xargs -0 rm -rf
-find "$RPM_BUILD_ROOT/%{_prefix}/lib" -type f -print0 | xargs -0 chmod 0644
-find "$RPM_BUILD_ROOT/%{_prefix}/lib" -type d -print0 | xargs -0 chmod 0755
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(0644, root, root, 0755)
 %{_prefix}
-%config(noreplace) "%{_prefix}/etc/config.json"
+%attr(0755, root, root) "%{_prefix}/bin/*"
+%attr(0640, gcsweb, gcsweb) %config(noreplace) "%{_prefix}/etc/config.json"
+
+%post
+# Allow Globus (via httpd) to talk to ldap
+if /usr/sbin/selinuxenabled ; then
+ /usr/sbin/setsebool -P authlogin_nsswitch_use_ldap 1 2>/dev/null
+fi
