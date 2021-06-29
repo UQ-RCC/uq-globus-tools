@@ -1,16 +1,22 @@
-##
-# NB: This isn't used yet
-##
 module uq-globus-tools 1.0;
 
 require {
         type ldap_port_t;
+        type devlog_t;
         type gcs_manager_t;
+
         class tcp_socket name_connect;
+        class lnk_file   read;
+        class sock_file  write;
 }
 
-#============= gcs_manager_t ==============
-
-#!!!! This avc can be allowed using one of the these booleans:
-#     authlogin_nsswitch_use_ldap, nis_enabled
+##
+# For ldap
+##
 allow gcs_manager_t ldap_port_t:tcp_socket name_connect;
+
+##
+# For /dev/log
+##
+allow gcs_manager_t devlog_t:lnk_file read;
+allow gcs_manager_t devlog_t:sock_file write;
