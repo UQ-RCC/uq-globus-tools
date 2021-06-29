@@ -8,8 +8,9 @@ Summary:    %{_name}
 License:    Proprietary
 # We use Globus' embedded python
 Requires:   globus-connect-server54
-#Requires:   python3
-Requires(post): /usr/sbin/setsebool, /usr/sbin/selinuxenabled
+Requires(post):   /usr/sbin/semodule
+Requires(postun): /usr/sbin/semodule
+
 BuildArch:  noarch
 
 %description
@@ -26,12 +27,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644, root, root, 0755)
-%{_prefix}
+%{_prefix}/lib/python/*
 %attr(0755, root, root) "%{_prefix}/bin/*"
 %attr(0640, gcsweb, gcsweb) %config(noreplace) "%{_prefix}/etc/config.json"
+%{_datadir}/selinux/targeted/uq-globus-tools.pp
 
 %post
-# Allow Globus (via httpd) to talk to ldap
-if /usr/sbin/selinuxenabled ; then
- /usr/sbin/setsebool -P authlogin_nsswitch_use_ldap 1 2>/dev/null
-fi
+/usr/sbin/semodule -s targeted -i %{_datadir}/selinux/targeted/uq-globus-tools.pp &> /dev/null || :
+
+%postun
+/usr/sbin/semodule -s targeted -r uq-globus-tools &> /dev/null || :
