@@ -3,3 +3,5 @@
 /venv/
 /etc/config.json
 /rpmbuild/
+**/*.mod
+**/*.pp
