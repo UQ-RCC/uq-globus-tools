@@ -19,6 +19,16 @@
       "email": "j.doe@uq.edu.au",
       "identity_type": "login",
       "organization": "The University of Queensland"
+    },
+    {
+      "id": "e7993566-da34-11eb-bd55-e33dc0eb56f5",
+      "username": "joe.citizen@aarnet.edu.au",
+      "identity_provider": "ebaff6e4-169b-4939-9157-f500821962b5",
+      "email": "Joe.Citizen@aarnet.edu.au",
+      "identity_type": "login",
+      "status": "used",
+      "name": "Joe Citizen",
+      "organization": "AARNet"
     }
   ],
   "DATA_TYPE": "identity_mapping_input#1.0.0"
