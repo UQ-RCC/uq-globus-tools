@@ -29,7 +29,18 @@
       "status": "used",
       "name": "Joe Citizen",
       "organization": "AARNet"
+    },
+    {
+      "email": "t.squat@griffith.edu.au",
+      "status": "used",
+      "username": "s111111@griffith.edu.au",
+      "organization": "Griffith University",
+      "identity_type": "login",
+      "id": "cce3cfac-da38-11eb-892b-a36ea4a26566",
+      "identity_provider": "b8d81b2b-60c5-40b5-ac9d-bddf644d5cee",
+      "name": "Terrance Squat"
     }
+
   ],
   "DATA_TYPE": "identity_mapping_input#1.0.0"
 }
