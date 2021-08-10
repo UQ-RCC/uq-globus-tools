@@ -36,4 +36,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/semodule -s targeted -i %{_datadir}/selinux/targeted/uq-globus-tools.pp &> /dev/null || :
 
 %postun
-/usr/sbin/semodule -s targeted -r uq-globus-tools &> /dev/null || :
+if [ $1 -eq 0 ]; then
+  /usr/sbin/semodule -s targeted -r uq-globus-tools &> /dev/null || :
+fi
