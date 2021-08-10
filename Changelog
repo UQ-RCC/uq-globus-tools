@@ -1,0 +1,6 @@
+version 1.0.0-2
+- Generate python bytecode on installation
+- Fix %postun
+
+version 1.0.0-1
+- Initial release
