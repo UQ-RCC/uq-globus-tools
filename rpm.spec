@@ -3,7 +3,7 @@
 
 Name:       %{_name}
 Version:    1.0.0
-Release:    1
+Release:    2
 Summary:    %{_name}
 License:    Proprietary
 # We use Globus' embedded python
@@ -20,7 +20,6 @@ UQ Globus Utilities. currently consisting of:
 %install
 mkdir -p "$RPM_BUILD_ROOT/%{_prefix}"
 mv * "$RPM_BUILD_ROOT/%{_prefix}"
-find "$RPM_BUILD_ROOT/%{_prefix}" -name __pycache__ -type d -print0 | xargs -0 rm -rf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -34,8 +33,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /usr/sbin/semodule -s targeted -i %{_datadir}/selinux/targeted/uq-globus-tools.pp &> /dev/null || :
+# Regenerate the bytecode
+find %{_prefix}/lib/python -name __pycache__ -type d -print0 | xargs -0 rm -rf
+/opt/globus/bin/python3 -m compileall %{_prefix}/lib/python &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ]; then
   /usr/sbin/semodule -s targeted -r uq-globus-tools &> /dev/null || :
+  find %{_prefix}/lib/python -name __pycache__ -type d -print0 | xargs -0 rm -rf
 fi

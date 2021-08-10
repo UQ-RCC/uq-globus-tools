@@ -18,12 +18,6 @@ else
   PYTHON=python3
 fi
 
-##
-# Hack because python packaging is painful. We're not built on the
-# target OS, so this can't be done properly and we don't want python
-# crapping up our install directory.
-##
-export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="$BASEDIR/lib/python"
 export GLOBUS_IDMAP_CONFIG_PATH="$BASEDIR/etc/config.json"
 exec $PYTHON -m rccutil.globus.idmap $@

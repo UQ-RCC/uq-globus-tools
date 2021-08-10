@@ -14,6 +14,7 @@ rpm: uq-globus-tools.pp
 	rm -rf rpmbuild/* && mkdir -p rpmbuild/BUILD/{lib/python,share/selinux/targeted}
 	cp -R rpmroot/* rpmbuild/BUILD/
 	cp -R qriscloud rccutil rpmbuild/BUILD/lib/python
+	python3 -m compileall rpmbuild/BUILD/lib/python
 	cp uq-globus-tools.pp rpmbuild/BUILD/share/selinux/targeted
 	# rpmbuild does NOT like relative paths...
 	rpmbuild --define "_topdir ${PWD}/rpmbuild" -bb rpm.spec
