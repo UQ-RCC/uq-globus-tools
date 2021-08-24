@@ -1,4 +1,4 @@
-{ pkgs ? (import <nixpkgs> {}), stdenv ? pkgs.stdenv }:
+{ pkgs ? (import <nixpkgs> {}) }:
 let
   # Match the version on CentOS8
   xlibsepol = pkgs.libsepol.overrideDerivation(old: rec {
@@ -13,7 +13,7 @@ let
 
   });
 in
-stdenv.mkDerivation {
+pkgs.mkShell {
   pname   = "uq-globus-tools-devshell";
   version = "1.0.0";
 
