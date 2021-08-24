@@ -1,5 +1,6 @@
 { pkgs ? (import <nixpkgs> {}), stdenv ? pkgs.stdenv }:
 let
+  # Match the version on CentOS8
   xlibsepol = pkgs.libsepol.overrideDerivation(old: rec {
     inherit (old) se_url;
     se_release = "20190315";
