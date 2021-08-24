@@ -17,8 +17,11 @@ stdenv.mkDerivation {
   version = "1.0.0";
 
   nativeBuildInputs = with pkgs; [
+    fakeroot
     rpm
     gnumake
+    python3
+    file
     (checkpolicy.override { libsepol = xlibsepol; })
     semodule-utils
   ];
