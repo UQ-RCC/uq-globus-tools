@@ -10,6 +10,15 @@ $ nix-shell --pure --command 'make rpm'
 
 The RPM will be placed in `rpmbuild/RPMS/noarch`.
 
+
+### RHEL8
+```
+$ yum install fakeroot make python3
+$ make rpm
+```
+
+The RPM will be placed in `rpmbuild/RPMS/noarch`.
+
 ## License
 This project is licensed under the [Apache License, Version 2.0](https://opensource.org/licenses/Apache-2.0):
 
